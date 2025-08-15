@@ -1,0 +1,45 @@
+version: '3.8'
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: octopod-api
+    restart: always
+    ports:
+      - "3001:3001"
+    environment:
+      - NODE_ENV=production
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_USERNAME=postgres
+      - DB_PASSWORD=postgres
+      - DB_DATABASE=octopod
+      - DB_SYNC=true
+    depends_on:
+      - postgres
+    networks:
+      - octopod-network
+
+  postgres:
+    image: postgres:15-alpine
+    container_name: octopod-postgres
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=octopod
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - octopod-network
+
+networks:
+  octopod-network:
+    driver: bridge
+
+volumes:
+  postgres_data:
