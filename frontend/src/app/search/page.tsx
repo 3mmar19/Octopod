@@ -8,6 +8,81 @@ import { ResultsGrid } from "@/components/search/ResultsGrid";
 import { getAllPodcasts, Podcast, clearDatabase } from "@/services/api";
 import { PodcastCard } from "@/components/podcast/PodcastCard";
 
+// Featured Podcasts Pagination Component
+function FeaturedPodcastsPagination({ podcasts }: { podcasts: Podcast[] }) {
+  const [currentPage, setCurrentPage] = useState(1);
+  const podcastsPerPage = 10; // Adjust for responsive grid (2x5 mobile, 3x4 tablet, 5x2 desktop)
+  const totalPages = Math.ceil(podcasts.length / podcastsPerPage);
+  const startIndex = (currentPage - 1) * podcastsPerPage;
+  const endIndex = startIndex + podcastsPerPage;
+  const currentPodcasts = podcasts.slice(startIndex, endIndex);
+
+  const handlePreviousPage = () => {
+    setCurrentPage(prev => Math.max(prev - 1, 1));
+  };
+
+  const handleNextPage = () => {
+    setCurrentPage(prev => Math.min(prev + 1, totalPages));
+  };
+
+  return (
+    <div className="space-y-6">
+      {/* Responsive Grid: 2 cols on mobile, 3 on tablet, 5 on desktop */}
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4 lg:gap-6">
+        {currentPodcasts.map((podcast) => (
+          <div key={podcast.collectionId || podcast.id} className="group">
+            <PodcastCard podcast={podcast} />
+          </div>
+        ))}
+      </div>
+
+      {/* Enhanced Pagination Controls */}
+      {totalPages > 1 && (
+        <div className="flex flex-col items-center gap-4 mt-8">
+          <div className="text-sm text-muted-foreground">
+            عرض {startIndex + 1}-{Math.min(endIndex, podcasts.length)} من {podcasts.length} بودكاست
+          </div>
+          
+          <div className="flex items-center gap-2">
+            <button
+              onClick={handlePreviousPage}
+              disabled={currentPage === 1}
+              className="px-4 py-2 bg-muted hover:bg-muted/60 hover:shadow-md hover:scale-105 text-foreground rounded-lg text-sm font-medium transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 disabled:hover:shadow-none"
+            >
+              السابق
+            </button>
+            
+            {/* Page numbers */}
+            <div className="flex items-center gap-1">
+              {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+                <button
+                  key={page}
+                  onClick={() => setCurrentPage(page)}
+                  className={`w-10 h-10 rounded-lg text-sm font-medium transition-all duration-300 ${
+                    page === currentPage
+                      ? 'bg-primary text-primary-foreground shadow-lg scale-110'
+                      : 'bg-muted hover:bg-muted/60 hover:shadow-md hover:scale-110 text-foreground'
+                  }`}
+                >
+                  {page}
+                </button>
+              ))}
+            </div>
+            
+            <button
+              onClick={handleNextPage}
+              disabled={currentPage === totalPages}
+              className="px-4 py-2 bg-muted hover:bg-muted/60 hover:shadow-md hover:scale-105 text-foreground rounded-lg text-sm font-medium transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 disabled:hover:shadow-none"
+            >
+              التالي
+            </button>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
 // Create a client component that uses useSearchParams
 function SearchContent() {
   const searchParams = useSearchParams();
@@ -47,15 +122,15 @@ function SearchContent() {
       const result = await clearDatabase();
       
       if (result.success) {
-        setClearMessage(`تم مسح قاعدة البيانات بنجاح. ${result.affected ? `تم حذف ${result.affected} سجل.` : ''}`);
+        setClearMessage(`تم حذف النتائج بنجاح. ${result.affected ? `تم حذف ${result.affected} سجل.` : ''}`);
         // Refresh the podcasts list
         fetchPodcasts();
       } else {
-        setClearMessage(`فشل مسح قاعدة البيانات: ${result.message}`);
+        setClearMessage(`فشل حذف النتائج: ${result.message}`);
       }
     } catch (err) {
       console.error("Error clearing database:", err);
-      setClearMessage("حدث خطأ أثناء محاولة مسح قاعدة البيانات.");
+      setClearMessage("حدث خطأ أثناء محاولة حذف النتائج.");
     } finally {
       setIsClearing(false);
     }
@@ -101,7 +176,7 @@ function SearchContent() {
                     disabled={isClearing}
                     className="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-md text-sm font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                   >
-                    {isClearing ? 'جاري المسح...' : 'مسح قاعدة البيانات'}
+                    {isClearing ? 'جاري الحذف...' : 'حذف نتائج البحث'}
                   </button>
                 </div>
                 {clearMessage && (
@@ -109,11 +184,7 @@ function SearchContent() {
                     {clearMessage}
                   </div>
                 )}
-                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 md:gap-6">
-                  {podcasts.map((podcast) => (
-                    <PodcastCard key={podcast.collectionId || podcast.id} podcast={podcast} />
-                  ))}
-                </div>
+                <FeaturedPodcastsPagination podcasts={podcasts} />
               </section>
             </div>
           )}

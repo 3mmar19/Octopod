@@ -56,24 +56,11 @@ export class PodcastService {
   async clearAllPodcasts(): Promise<any> {
     this.logger.log('Clearing all podcasts from database');
     try {
-      // First check if there are any podcasts to delete
-      const count = await this.podcastRepository.count();
-      
-      if (count === 0) {
-        return {
-          success: true,
-          message: 'Database is already empty',
-          affected: 0,
-        };
-      }
-
-      // Use clear() method instead of delete({}) to avoid empty criteria error
-      await this.podcastRepository.clear();
-      
+      const deleteResult = await this.podcastRepository.delete({});
       return {
         success: true,
-        message: `Successfully cleared ${count} podcasts from database`,
-        affected: count,
+        message: `Successfully cleared ${deleteResult.affected} podcasts from database`,
+        affected: deleteResult.affected,
       };
     } catch (error) {
       this.logger.error(`Error clearing podcasts from database: ${error.message}`);

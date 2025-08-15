@@ -10,6 +10,8 @@ export function ResultsGrid({ query }: ResultsGridProps) {
   const [podcasts, setPodcasts] = useState<Podcast[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const podcastsPerPage = 10; // Adjust for responsive grid (2x5 mobile, 3x4 tablet, 5x2 desktop)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -20,6 +22,7 @@ export function ResultsGrid({ query }: ResultsGridProps) {
 
       setLoading(true);
       setError(null);
+      setCurrentPage(1); // Reset to first page on new search
 
       try {
         const response = await searchPodcasts(query);
@@ -71,6 +74,20 @@ export function ResultsGrid({ query }: ResultsGridProps) {
     );
   }
 
+  // Pagination calculations
+  const totalPages = Math.ceil(podcasts.length / podcastsPerPage);
+  const startIndex = (currentPage - 1) * podcastsPerPage;
+  const endIndex = startIndex + podcastsPerPage;
+  const currentPodcasts = podcasts.slice(startIndex, endIndex);
+
+  const handlePreviousPage = () => {
+    setCurrentPage(prev => Math.max(prev - 1, 1));
+  };
+
+  const handleNextPage = () => {
+    setCurrentPage(prev => Math.min(prev + 1, totalPages));
+  };
+
   return (
     <div className="space-y-8 sm:space-y-12">
       {/* Podcasts Section */}
@@ -84,11 +101,59 @@ export function ResultsGrid({ query }: ResultsGridProps) {
               {podcasts.length} نتيجة
             </span>
           </div>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-7 gap-3 sm:gap-4 md:gap-6">
-            {podcasts.map((podcast) => (
-              <PodcastCard key={podcast.collectionId || podcast.id} podcast={podcast} />
+          
+          {/* Responsive Grid Layout */}
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4 lg:gap-6">
+            {currentPodcasts.map((podcast) => (
+              <div key={podcast.collectionId || podcast.id} className="group">
+                <PodcastCard podcast={podcast} />
+              </div>
             ))}
           </div>
+
+          {/* Enhanced Pagination Controls */}
+          {totalPages > 1 && (
+            <div className="flex flex-col items-center gap-4 mt-8">
+              <div className="text-sm text-muted-foreground">
+                عرض {startIndex + 1}-{Math.min(endIndex, podcasts.length)} من {podcasts.length} نتيجة
+              </div>
+              
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={handlePreviousPage}
+                  disabled={currentPage === 1}
+                  className="px-4 py-2 bg-muted hover:bg-muted/60 hover:shadow-md hover:scale-105 text-foreground rounded-lg text-sm font-medium transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 disabled:hover:shadow-none"
+                >
+                  السابق
+                </button>
+                
+                {/* Page numbers */}
+                <div className="flex items-center gap-1">
+                  {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+                    <button
+                      key={page}
+                      onClick={() => setCurrentPage(page)}
+                      className={`w-10 h-10 rounded-lg text-sm font-medium transition-all duration-300 ${
+                        page === currentPage
+                          ? 'bg-primary text-primary-foreground shadow-lg scale-110'
+                          : 'bg-muted hover:bg-muted/60 hover:shadow-md hover:scale-110 text-foreground'
+                      }`}
+                    >
+                      {page}
+                    </button>
+                  ))}
+                </div>
+                
+                <button
+                  onClick={handleNextPage}
+                  disabled={currentPage === totalPages}
+                  className="px-4 py-2 bg-muted hover:bg-muted/60 hover:shadow-md hover:scale-105 text-foreground rounded-lg text-sm font-medium transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 disabled:hover:shadow-none"
+                >
+                  التالي
+                </button>
+              </div>
+            </div>
+          )}
         </section>
       )}
     </div>

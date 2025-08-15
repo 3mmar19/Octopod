@@ -42,7 +42,7 @@ export function SearchBar({ initialQuery = "" }: SearchBarProps) {
             type="text"
             value={query}
             onChange={handleInputChange}
-            placeholder="البحث عن قنوات البودكاست"
+            placeholder="اكتب مصطلح البحث للبدء"
             className="h-10 sm:h-12 px-3 sm:px-4 text-base sm:text-lg"
             dir="rtl"
           />
