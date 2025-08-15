@@ -12,6 +12,8 @@
   --primary: #3b82f6;
   --primary-foreground: #ffffff;
   --ring: #3b82f6;
+  --gradient-start: #3b82f6;
+  --gradient-end: #a855f7;
 }
 
 /* Base Styles */
@@ -57,4 +59,39 @@ body {
 
 ::-webkit-scrollbar-thumb:hover {
   background: #3a3b4d;
+}
+
+/* Animations */
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animate-gradient {
+  background-size: 200% auto;
+  animation: gradient 3s ease infinite;
+}
+
+/* Responsive Utilities */
+@media (max-width: 640px) {
+  .text-responsive {
+    font-size: 0.875rem;
+  }
+}
+
+/* Hover Effects */
+.hover-lift {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
 }

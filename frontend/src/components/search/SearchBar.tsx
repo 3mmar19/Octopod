@@ -1,9 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { useDebouncedCallback } from "use-debounce";  // Third-party hook to delay API calls
-import { Input } from "@/components/ui/Input";
+import { useDebouncedCallback } from "use-debounce";
+import { Search, X } from "lucide-react";
 
 interface SearchBarProps {
   initialQuery?: string;
@@ -34,28 +34,54 @@ export function SearchBar({ initialQuery = "" }: SearchBarProps) {
     }
   };
 
+  const inputRef = useRef<HTMLInputElement>(null);
+  const [isFocused, setIsFocused] = useState(false);
+
+  // Focus the input when the component mounts
+  useEffect(() => {
+    if (initialQuery && inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, [initialQuery]);
+
   return (
     <div className="md:w-full max-w-2xl mx-auto px-4 sm:px-6 md:px-0 md:mr-0 mr-12">
       <form onSubmit={handleSubmit}>
-        <div className="relative">
-          <Input
+        <div 
+          className={`relative flex items-center overflow-hidden rounded-xl border ${isFocused ? 'border-[#3b82f6] shadow-lg ring-2 ring-[#3b82f6]/20' : 'border-[#2a2b3d] shadow-md'} bg-[#1e1f30] transition-all duration-300`}
+        >
+          {/* Search Icon */}
+          <div className="absolute right-4 text-muted-foreground">
+            <Search className="w-5 h-5" />
+          </div>
+
+          <input
+            ref={inputRef}
             type="text"
             value={query}
             onChange={handleInputChange}
+            onFocus={() => setIsFocused(true)}
+            onBlur={() => setIsFocused(false)}
             placeholder="البحث عن قنوات البودكاست"
-            className="h-10 sm:h-12 px-3 sm:px-4 text-base sm:text-lg"
+            className="h-12 sm:h-14 w-full bg-transparent px-4 pr-12 py-2 text-base sm:text-lg text-foreground placeholder:text-muted-foreground focus:outline-none transition-all duration-300"
             dir="rtl"
           />
+          
+          {/* Clear Button with Animation */}
           {query && (
             <button
               type="button"
               onClick={() => {
                 setQuery("");
                 router.push("/search");
+                if (inputRef.current) {
+                  inputRef.current.focus();
+                }
               }}
-              className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
+              className="absolute left-3 p-1.5 rounded-full bg-[#2a2b3d] hover:bg-[#3a3b4d] text-muted-foreground hover:text-white transition-all duration-300 transform hover:scale-110"
+              aria-label="Clear search"
             >
-              ✕
+              <X className="w-4 h-4" />
             </button>
           )}
         </div>

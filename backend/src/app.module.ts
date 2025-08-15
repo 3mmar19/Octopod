@@ -7,7 +7,6 @@ import { PodcastsModule } from './podcasts/podcasts.module';
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      envFilePath: '.env',
     }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
@@ -15,12 +14,13 @@ import { PodcastsModule } from './podcasts/podcasts.module';
       useFactory: (configService: ConfigService) => ({
         type: 'postgres',
         host: configService.get('DB_HOST', 'postgres'),
-        port: configService.get('DB_PORT', 5432),
+        port: parseInt(configService.get('DB_PORT', '5432')),
         username: configService.get('DB_USERNAME', 'postgres'),
         password: configService.get('DB_PASSWORD', 'postgres'),
         database: configService.get('DB_DATABASE', 'octopod'),
         entities: [__dirname + '/**/*.entity{.ts,.js}'],
-        synchronize: configService.get('DB_SYNC', true),
+        synchronize: configService.get('DB_SYNC', 'true') === 'true',
+        logging: configService.get('NODE_ENV', 'development') === 'development',
       }),
     }),
     PodcastsModule,
