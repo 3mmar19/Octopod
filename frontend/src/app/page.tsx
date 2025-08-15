@@ -1,10 +1,9 @@
 "use client";
 
-import { useState, Suspense, useEffect } from "react";
-import Link from "next/link";
+import { useState, Suspense } from "react";
 import { Sidebar, MobileMenuButton } from "@/components/sidebar/Sidebar";
 import { SearchBar } from "@/components/search/SearchBar";
-import { ArrowRight, Headphones, Search, Star, Zap } from "lucide-react";
+import { Headphones, Search, Star, Zap } from "lucide-react";
 
 export default function Home() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -128,7 +127,7 @@ export default function Home() {
                     <div className="bg-primary/20 text-primary font-bold rounded-full w-10 h-10 flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-all duration-300">01</div>
                     <h3 className="text-lg sm:text-xl font-semibold text-white">Octo</h3>
                   </div>
-                  <p className="text-muted-foreground text-sm sm:text-base">مشتقة من الكلمة اللاتينية Octo التي تعني "8"</p>
+                  <p className="text-muted-foreground text-sm sm:text-base">مشتقة من الكلمة اللاتينية Octo التي تعني 8</p>
                 </div>
                 
                 <div className="bg-[#1e1f30]/80 rounded-xl p-5 sm:p-6 shadow-md hover:shadow-xl transition-all duration-500 transform hover:-translate-y-2 border border-[#2a2b3d]/50 group">
