@@ -4,6 +4,8 @@ services:
     build:
       context: ./frontend
       dockerfile: Dockerfile
+      args:
+        - NEXT_PUBLIC_API_URL=http://104.251.216.212:3001
     container_name: octopod-frontend
     restart: always
     ports:
