@@ -1,25 +1,11 @@
+version: '3.8'
 
 services:
-  frontend:
+  api:
     build:
-      context: ./frontend
+      context: .
       dockerfile: Dockerfile
-    container_name: octopod-frontend
-    restart: always
-    ports:
-      - "3000:3000"
-    environment:
-      - NEXT_PUBLIC_API_URL=http://104.251.216.212:3001
-    depends_on:
-      - backend
-    networks:
-      - octopod-network
-
-  backend:
-    build:
-      context: ./backend
-      dockerfile: Dockerfile
-    container_name: octopod-backend
+    container_name: octopod-api
     restart: always
     ports:
       - "3001:3001"

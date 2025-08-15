@@ -8,12 +8,15 @@ RUN npm install
 
 COPY . .
 
+<<<<<<< HEAD
 ARG NEXT_PUBLIC_API_URL
 ENV NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL
 
 # Debug: Print the API URL being used
 RUN echo "Building with API URL: $NEXT_PUBLIC_API_URL"
 
+=======
+>>>>>>> parent of bbca116a (update readme and fix the backend)
 RUN npm run build
 
 FROM node:18-alpine AS production

@@ -1,6 +1,6 @@
 // API service for podcast data
 
-const API_URL = 'http://104.251.216.212:3001';
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
 
 export interface Podcast {
   id?: string;
