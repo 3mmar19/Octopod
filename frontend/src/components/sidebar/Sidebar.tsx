@@ -7,10 +7,10 @@ import { Twitter, Linkedin, Github } from 'lucide-react';
 
 const sidebarItems = [
   { href: "/", label: "الرئيسية", icon: "🏠" },
-  { href: "/discover", label: "اكتشف", icon: "🔍" },
-  { href: "/queue", label: "قائمة الانتظار", icon: "📋" },
-  { href: "/podcasts", label: "البودكاست الخاص بي", icon: "🎧" },
-  { href: "/recents", label: "الحديثة", icon: "🕒" },
+  { href: "/search", label: "بحث", icon: "🔍" },
+  { href: "/waiting-list", label: "قائمة الانتظار", icon: "📋" },
+  { href: "/my-podcasts", label: "البودكاست الخاص بي", icon: "🎧" },
+  { href: "/latest", label: "الحديثة", icon: "🕒" },
 ];
 
 interface SidebarProps {

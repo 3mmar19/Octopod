@@ -34,6 +34,8 @@ const nextConfig: NextConfig = {
         pathname: '/image/**',
       },
     ],
+    // Disable image optimization for production server compatibility
+    unoptimized: true,
   },
 };
 

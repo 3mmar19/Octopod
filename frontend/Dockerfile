@@ -4,7 +4,9 @@ WORKDIR /app
 
 COPY package*.json ./
 
+# Install sharp for Next.js image optimization in production
 RUN npm install
+RUN npm install sharp
 
 COPY . .
 
@@ -19,6 +21,9 @@ RUN npm run build
 FROM node:18-alpine AS production
 
 WORKDIR /app
+
+# Install sharp in production stage
+RUN npm install sharp
 
 COPY --from=build /app/package*.json ./
 COPY --from=build /app/.next ./.next
