@@ -127,7 +127,7 @@ export default function Home() {
                     <div className="bg-primary/20 text-primary font-bold rounded-full w-10 h-10 flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-all duration-300">01</div>
                     <h3 className="text-lg sm:text-xl font-semibold text-white">Octo</h3>
                   </div>
-                  <p className="text-muted-foreground text-sm sm:text-base">Derived from the Latin word "Octo" meaning 8</p>
+                  <p className="text-muted-foreground text-sm sm:text-base">Derived from the Latin word &quot;Octo&quot; meaning 8</p>
                 </div>
                 
                 <div className="bg-[#1e1f30]/80 rounded-xl p-5 sm:p-6 shadow-md hover:shadow-xl transition-all duration-500 transform hover:-translate-y-2 border border-[#2a2b3d]/50 group">
@@ -151,13 +151,13 @@ export default function Home() {
                     <div className="bg-primary/20 text-primary font-bold rounded-full w-10 h-10 flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-all duration-300">04</div>
                     <h3 className="text-lg sm:text-xl font-semibold text-white">Pod</h3>
                   </div>
-                  <p className="text-muted-foreground text-sm sm:text-base">A direct reference to podcasts, the project's domain</p>
+                  <p className="text-muted-foreground text-sm sm:text-base">A direct reference to podcasts, the project&#39;s domain</p>
                 </div>
               </div>
               
               <div className="mt-6 sm:mt-8 p-5 sm:p-6 bg-[#1e1f30]/60 rounded-xl text-center border border-[#2a2b3d]/30 backdrop-blur-sm">
                 <p className="text-white text-sm sm:text-base leading-relaxed">
-                  Thus, the name <span className="text-primary font-semibold">OctoPod</span> is clever because it combines the number 8 and the project's identity with the world of podcasts in one easy-to-pronounce, memorable word.
+                  Thus, the name <span className="text-primary font-semibold">OctoPod</span> is clever because it combines the number 8 and the project&#39;s identity with the world of podcasts in one easy-to-pronounce, memorable word.
                 </p>
               </div>
             </div>
