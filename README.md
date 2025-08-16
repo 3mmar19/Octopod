@@ -3,7 +3,7 @@
 <p align="center">
   <img src="frontend/public/logoW.png" alt="Octopod Logo" width="260" />
 </p>
-<p align="center"><strong>بحث البودكاست بسرعة وذكاء مع واجهة عربية حديثة</strong></p>
+<p align="center"><strong>بحث قنوات البودكاست من كلمات بسيطة مع واجهة عربية حديثة</strong></p>
 
 ## Overview
 
