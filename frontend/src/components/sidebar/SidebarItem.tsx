@@ -20,12 +20,11 @@ export function SidebarItem({ href, label, icon, onClose }: SidebarItemProps) {
       href={href}
       onClick={onClose}
       className={`
-        flex items-center gap-3 px-6 py-4 rounded-xl text-base font-medium transition-all duration-300 group
-        border border-transparent backdrop-blur-sm
+        flex items-center gap-3 px-4 py-3 rounded-md text-sm font-medium transition-colors duration-200 group
         ${
           isActive
-            ? "bg-[#3b82f6] text-white shadow-lg border-[#3b82f6]/20"
-            : "text-gray-300 hover:text-white hover:bg-[#1e1f30]/60 hover:border-[#2a2b3d]/50 hover:shadow-md"
+            ? "bg-white/10 text-white"
+            : "text-gray-300 hover:text-white hover:bg-white/5"
         }
       `}
     >

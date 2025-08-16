@@ -5,13 +5,13 @@ services:
       context: ./frontend
       dockerfile: Dockerfile
       args:
-        - NEXT_PUBLIC_API_URL=http://104.251.216.212:3001
+        - NEXT_PUBLIC_API_URL=${PUBLIC_API_URL}
     container_name: octopod-frontend
     restart: always
     ports:
       - "3000:3000"
     environment:
-      - NEXT_PUBLIC_API_URL=http://104.251.216.212:3001
+      - NEXT_PUBLIC_API_URL=${PUBLIC_API_URL}
     depends_on:
       - backend
     networks:
@@ -24,7 +24,7 @@ services:
     container_name: octopod-backend
     restart: always
     ports:
-      - "3001:3001"
+      - "${BACKEND_PUBLIC_PORT:-3001}:3001"
     environment:
       - NODE_ENV=production
       - DB_HOST=postgres

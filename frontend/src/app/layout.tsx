@@ -1,5 +1,4 @@
 import "@/styles/globals.css";
-import { ibmPlexArabic } from "./fonts";
 
 export const metadata = {
   title: "Octopod - البحث في البودكاست",
@@ -22,8 +21,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ar" dir="rtl" className="dark">
-      <body className={`${ibmPlexArabic.variable} ${ibmPlexArabic.className} antialiased`}>
+    <html lang="en" dir="ltr" className="dark">
+      <body className="antialiased">
         {children}
       </body>
     </html>

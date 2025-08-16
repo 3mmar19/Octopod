@@ -44,7 +44,7 @@ export function ResultsGrid({ query }: ResultsGridProps) {
   if (loading) {
     return (
       <div className="text-center py-12">
-        <p className="text-muted-foreground text-lg mb-2">جاري البحث...</p>
+        <p className="text-muted-foreground text-lg mb-2">Searching...</p>
       </div>
     );
   }
@@ -60,8 +60,8 @@ export function ResultsGrid({ query }: ResultsGridProps) {
   if (!hasResults && query.trim().length > 0) {
     return (
       <div className="text-center py-12">
-        <p className="text-muted-foreground text-lg mb-2">لا توجد نتائج</p>
-        <p className="text-muted-foreground text-sm">جرب البحث بكلمات مختلفة</p>
+        <p className="text-muted-foreground text-lg mb-2">No results found</p>
+        <p className="text-muted-foreground text-sm">Try different keywords</p>
       </div>
     );
   }
@@ -69,7 +69,7 @@ export function ResultsGrid({ query }: ResultsGridProps) {
   if (!query || query.trim().length === 0) {
     return (
       <div className="text-center py-12">
-        <p className="text-muted-foreground text-lg mb-2">ابدأ البحث عن البودكاست المفضل لديك</p>
+        <p className="text-muted-foreground text-lg mb-2">Start searching for your favorite podcasts</p>
       </div>
     );
   }
@@ -95,10 +95,10 @@ export function ResultsGrid({ query }: ResultsGridProps) {
         <section>
           <div className="flex items-center justify-between mb-4 sm:mb-6">
             <h2 className="text-lg sm:text-xl font-bold text-foreground">
-              نتائج البحث لـ &quot;{query}&quot;
+              Search results for &quot;{query}&quot;
             </h2>
             <span className="text-sm text-muted-foreground">
-              {podcasts.length} نتيجة
+              {podcasts.length} results
             </span>
           </div>
           
@@ -115,7 +115,7 @@ export function ResultsGrid({ query }: ResultsGridProps) {
           {totalPages > 1 && (
             <div className="flex flex-col items-center gap-4 mt-8">
               <div className="text-sm text-muted-foreground">
-                عرض {startIndex + 1}-{Math.min(endIndex, podcasts.length)} من {podcasts.length} نتيجة
+                Showing {startIndex + 1}-{Math.min(endIndex, podcasts.length)} of {podcasts.length} results
               </div>
               
               <div className="flex items-center gap-2">
@@ -124,7 +124,7 @@ export function ResultsGrid({ query }: ResultsGridProps) {
                   disabled={currentPage === 1}
                   className="px-4 py-2 bg-muted hover:bg-muted/60 hover:shadow-md hover:scale-105 text-foreground rounded-lg text-sm font-medium transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 disabled:hover:shadow-none"
                 >
-                  السابق
+                  Previous
                 </button>
                 
                 {/* Page numbers */}
@@ -149,7 +149,7 @@ export function ResultsGrid({ query }: ResultsGridProps) {
                   disabled={currentPage === totalPages}
                   className="px-4 py-2 bg-muted hover:bg-muted/60 hover:shadow-md hover:scale-105 text-foreground rounded-lg text-sm font-medium transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 disabled:hover:shadow-none"
                 >
-                  التالي
+                  Next
                 </button>
               </div>
             </div>

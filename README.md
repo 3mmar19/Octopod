@@ -37,10 +37,26 @@ Octopod is a modern, RTL-friendly podcast search application. It offers fast sea
 
 ### Using Docker Compose (Recommended)
 
-Run the entire stack locally:
+1) Create env file from example:
 
 ```bash
-docker-compose up -d
+cp .env.example .env
+```
+
+2) Set values in `.env`:
+
+- Local development
+  - `PUBLIC_API_URL=http://localhost:3001`
+  - `BACKEND_PUBLIC_PORT=3001`
+
+- VPS (public server) example
+  - `PUBLIC_API_URL=http://104.251.216.212:33001`
+  - `BACKEND_PUBLIC_PORT=33001`
+
+3) Start (rebuilds images when needed):
+
+```bash
+docker compose up -d --build
 ```
 
 Services:
@@ -153,12 +169,14 @@ octopod/
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
 
-## 👤 Author
+## Author & Contact
 
-- GitHub: [3mmar19](https://github.com/3mmar19)
-- Issues & support: Open an issue on GitHub
-- Live Demo: Add your deployment URL when available
-
-## 📄 License
-
-This project is open source and available under the [MIT License](LICENSE).
+<div align="center">
+  <img src="https://github.com/3mmar19.png" alt="Author Avatar" width="100" style="border-radius:50%"/>
+  <h3>Ammar Bin Hussain</h3>
+  <p>
+    <a href="https://github.com/3mmar19"><img src="https://img.shields.io/badge/GitHub-3mmar19-2ea44f?logo=github" alt="GitHub"/></a>
+    <a href="https://linkedin.com/in/3mmar"><img src="https://img.shields.io/badge/LinkedIn-3mmar-blue?logo=linkedin" alt="LinkedIn"/></a>
+    <a href="mailto:ammarhus.ahmed@gmail.com"><img src="https://img.shields.io/badge/Email-ammarhus.ahmed%40gmail.com-red?logo=gmail" alt="Email"/></a>
+  </p>
+</div>

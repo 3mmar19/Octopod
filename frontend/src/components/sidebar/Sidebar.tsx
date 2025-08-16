@@ -6,8 +6,8 @@ import { SidebarItem } from "./SidebarItem";
 import { Twitter, Linkedin, Github, Home, Search } from 'lucide-react';
 
 const sidebarItems = [
-  { href: "/", label: "الرئيسية", icon: <Home className="w-5 h-5" /> },
-  { href: "/search", label: "بحث", icon: <Search className="w-5 h-5" /> },
+  { href: "/", label: "Home", icon: <Home className="w-5 h-5" /> },
+  { href: "/search", label: "Discover", icon: <Search className="w-5 h-5" /> },
 ];
 
 interface SidebarProps {
@@ -21,7 +21,7 @@ export function MobileMenuButton({ isOpen, onClick }: { isOpen: boolean; onClick
     <button
       onClick={onClick}
       className="p-3 rounded-lg bg-[#1e1f30] border border-[#2a2b3d] hover:bg-[#2a2b3d] transition-colors shadow-lg"
-      aria-label={isOpen ? "إغلاق القائمة" : "فتح القائمة"}
+      aria-label={isOpen ? "Close Menu" : "Open Menu"}
     >
       <div className="w-6 h-6 flex flex-col justify-center items-center">
         <span
@@ -69,21 +69,21 @@ export function Sidebar({ isOpen = false, onClose }: SidebarProps) {
       />
       
       {/* Desktop Sidebar */}
-      <aside className="fixed right-0 top-0 h-screen w-64 bg-[#141523]/90 backdrop-blur-md border-l border-[#2a2b3d]/50 flex-col hidden md:flex shadow-2xl">
+      <aside className="fixed left-0 top-0 h-screen w-64 bg-[#141523]/90 backdrop-blur-md border-r border-[#2a2b3d]/50 flex-col hidden md:flex shadow-2xl">
         <SidebarContent />
       </aside>
 
       {/* Mobile Sidebar */}
       <aside 
-        className={`fixed top-0 right-0 z-50 w-72 h-screen flex-shrink-0 
+        className={`fixed top-0 left-0 z-50 w-72 h-screen flex-shrink-0 
           bg-[#141523]/95 backdrop-blur-md 
-          border-l border-[#2a2b3d]/50 
+          border-r border-[#2a2b3d]/50 
           flex flex-col transition-all duration-300 ease-out
           shadow-2xl overflow-y-auto md:hidden
           ${
             isOpen 
               ? 'translate-x-0 opacity-100 scale-x-100' 
-              : 'translate-x-full opacity-0 scale-x-95'
+              : '-translate-x-full opacity-0 scale-x-95'
           }`}
       >
         <SidebarContent onClose={onClose} />

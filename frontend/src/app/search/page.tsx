@@ -40,7 +40,7 @@ function FeaturedPodcastsPagination({ podcasts }: { podcasts: Podcast[] }) {
       {totalPages > 1 && (
         <div className="flex flex-col items-center gap-4 mt-8">
           <div className="text-sm text-muted-foreground">
-            عرض {startIndex + 1}-{Math.min(endIndex, podcasts.length)} من {podcasts.length} بودكاست
+            Showing {startIndex + 1}-{Math.min(endIndex, podcasts.length)} of {podcasts.length} podcasts
           </div>
           
           <div className="flex items-center gap-2">
@@ -49,7 +49,7 @@ function FeaturedPodcastsPagination({ podcasts }: { podcasts: Podcast[] }) {
               disabled={currentPage === 1}
               className="px-4 py-2 bg-muted hover:bg-muted/60 hover:shadow-md hover:scale-105 text-foreground rounded-lg text-sm font-medium transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 disabled:hover:shadow-none"
             >
-              السابق
+              Previous
             </button>
             
             {/* Page numbers */}
@@ -74,7 +74,7 @@ function FeaturedPodcastsPagination({ podcasts }: { podcasts: Podcast[] }) {
               disabled={currentPage === totalPages}
               className="px-4 py-2 bg-muted hover:bg-muted/60 hover:shadow-md hover:scale-105 text-foreground rounded-lg text-sm font-medium transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 disabled:hover:shadow-none"
             >
-              التالي
+              Next
             </button>
           </div>
         </div>
@@ -92,6 +92,7 @@ function SearchContent() {
   const [error, setError] = useState<string | null>(null);
   const [isClearing, setIsClearing] = useState(false);
   const [clearMessage, setClearMessage] = useState<string | null>(null);
+  const [clearSuccess, setClearSuccess] = useState<boolean | null>(null);
 
   const fetchPodcasts = async () => {
     try {
@@ -118,19 +119,23 @@ function SearchContent() {
     try {
       setIsClearing(true);
       setClearMessage(null);
+      setClearSuccess(null);
       
       const result = await clearDatabase();
       
       if (result.success) {
-        setClearMessage(`تم حذف النتائج بنجاح. ${result.affected ? `تم حذف ${result.affected} سجل.` : ''}`);
+        setClearMessage(`Results cleared successfully.${result.affected ? ` Deleted ${result.affected} record(s).` : ''}`);
+        setClearSuccess(true);
         // Refresh the podcasts list
         fetchPodcasts();
       } else {
-        setClearMessage(`فشل حذف النتائج: ${result.message}`);
+        setClearMessage(`Failed to clear results: ${result.message}`);
+        setClearSuccess(false);
       }
     } catch (err) {
       console.error("Error clearing database:", err);
-      setClearMessage("حدث خطأ أثناء محاولة حذف النتائج.");
+      setClearMessage("An error occurred while attempting to clear results.");
+      setClearSuccess(false);
     } finally {
       setIsClearing(false);
     }
@@ -144,17 +149,17 @@ function SearchContent() {
         <div>
           <div className="text-center mb-8">
             <h1 className="text-2xl sm:text-3xl font-bold mb-4">
-              اكتشف البودكاست المفضل لديك
+              Discover your favorite podcasts
             </h1>
             <p className="text-muted-foreground mb-6 sm:mb-8 text-sm sm:text-base max-w-2xl mx-auto">
-              ابحث في آلاف البودكاست العربية والعالمية واكتشف محتوى جديد يناسب اهتماماتك
+              Search thousands of Arabic and global podcasts and discover new content that matches your interests
             </p>
           </div>
           
           {/* Featured Podcasts from Database */}
           {loading ? (
             <div className="text-center py-12">
-              <p className="text-muted-foreground text-lg">جاري تحميل البودكاست...</p>
+              <p className="text-muted-foreground text-lg">Loading podcasts...</p>
             </div>
           ) : error ? (
             <div className="text-center py-12">
@@ -162,25 +167,25 @@ function SearchContent() {
             </div>
           ) : podcasts.length === 0 ? (
             <div className="text-center py-12">
-              <p className="text-muted-foreground text-lg">لا توجد بودكاست متاحة حالياً</p>
+              <p className="text-muted-foreground text-lg">No podcasts available right now</p>
             </div>
           ) : (
             <div className="space-y-8">
               <section>
                 <div className="flex items-center justify-between mb-6">
                   <h2 className="text-xl font-bold text-foreground">
-                       النتائج الأخيرة لعمليات البحث        
+                       Latest search results        
                   </h2>
                   <button
                     onClick={handleClearDatabase}
                     disabled={isClearing}
                     className="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-md text-sm font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                   >
-                    {isClearing ? 'جاري الحذف...' : 'حذف نتائج البحث'}
+                    {isClearing ? 'Deleting...' : 'Clear search results'}
                   </button>
                 </div>
                 {clearMessage && (
-                  <div className={`p-3 mb-4 rounded-md text-sm ${clearMessage.includes('بنجاح') ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>
+                  <div className={`p-3 mb-4 rounded-md text-sm ${clearSuccess ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>
                     {clearMessage}
                   </div>
                 )}
@@ -214,25 +219,25 @@ export default function SearchPage() {
       />
       
       {/* Main Content */}
-      <main className="md:mr-64 min-h-screen">
+      <main className="md:ml-64 min-h-screen">
         {/* Header with Search */}
-        <header className="sticky top-0 bg-background/80 backdrop-blur-sm border-b border-border z-10">
+        <header className="sticky top-0 bg-background/80 backdrop-blur-sm">
           <div className="px-4 sm:px-6 md:px-8 py-4 sm:py-6 relative max-w-7xl mx-auto">
-            {/* Mobile Menu Button - positioned in header */}
-            <div className="md:hidden absolute right-4 top-1/2 -translate-y-1/2">
+            {/* Mobile Menu Button - positioned in header (left) */}
+            <div className="md:hidden absolute left-4 top-1/2 -translate-y-1/2">
               <MobileMenuButton 
                 isOpen={isMobileMenuOpen} 
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} 
               />
             </div>
-            <Suspense fallback={<div className="w-full max-w-md mx-auto">جاري التحميل...</div>}>
+            <Suspense fallback={<div className="w-full max-w-md mx-auto">Loading...</div>}>
               <SearchBarWithParams />
             </Suspense>
           </div>
         </header>
 
         {/* Content Area */}
-        <Suspense fallback={<div className="px-4 sm:px-6 md:px-8 py-4 sm:py-6 max-w-7xl mx-auto text-center">جاري التحميل...</div>}>
+        <Suspense fallback={<div className="px-4 sm:px-6 md:px-8 py-4 sm:py-6 max-w-7xl mx-auto text-center">Loading...</div>}>
           <SearchContent />
         </Suspense>
       </main>
