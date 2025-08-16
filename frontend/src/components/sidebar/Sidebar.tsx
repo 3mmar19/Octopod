@@ -129,7 +129,7 @@ function SidebarContent({ onClose }: { onClose?: () => void }) {
           <div className="flex justify-center gap-3">
             {/* GitHub */}
             <a 
-              href="https://github.com/thmanyah" 
+              href="https://github.com/3mmar19" 
               target="_blank" 
               rel="noopener noreferrer" 
               className="w-9 h-9 rounded-full flex items-center justify-center bg-[#2a2b3d]/80 backdrop-blur-sm shadow-lg border border-[#3a3b4d]/50 text-gray-300 hover:text-white hover:bg-[#3a3b4d] hover:scale-110 hover:shadow-xl transition-all duration-300"
@@ -140,7 +140,7 @@ function SidebarContent({ onClose }: { onClose?: () => void }) {
             
             {/* LinkedIn */}
             <a 
-              href="https://linkedin.com/company/thmanyah" 
+              href="https://linkedin.com/in/3mmar" 
               target="_blank" 
               rel="noopener noreferrer" 
               className="w-9 h-9 rounded-full flex items-center justify-center bg-[#2a2b3d]/80 backdrop-blur-sm shadow-lg border border-[#3a3b4d]/50 text-gray-300 hover:text-blue-400 hover:bg-[#3a3b4d] hover:scale-110 hover:shadow-xl transition-all duration-300"
@@ -151,7 +151,7 @@ function SidebarContent({ onClose }: { onClose?: () => void }) {
             
             {/* Twitter */}
             <a 
-              href="https://twitter.com/thmanyah" 
+              href="https://twitter.com/3mmar19" 
               target="_blank" 
               rel="noopener noreferrer" 
               className="w-9 h-9 rounded-full flex items-center justify-center bg-[#2a2b3d]/80 backdrop-blur-sm shadow-lg border border-[#3a3b4d]/50 text-gray-300 hover:text-blue-400 hover:bg-[#3a3b4d] hover:scale-110 hover:shadow-xl transition-all duration-300"
