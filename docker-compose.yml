@@ -38,14 +38,14 @@ services:
       - "${BACKEND_PUBLIC_PORT:-3001}:3001"
     environment:
       - NODE_ENV=production
-      - DB_HOST=postgres
+      - DB_HOST=host.docker.internal
       - DB_PORT=5432
       - DB_USERNAME=${DB_USERNAME:-postgres}
       - DB_PASSWORD=${DB_PASSWORD:-postgres}
       - DB_DATABASE=octopod
       - DB_SYNC=true
-    depends_on:
-      - postgres
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     networks:
       - octopod-network
     # Security improvements
@@ -60,22 +60,6 @@ services:
           cpus: '0.75'
           memory: 1G
 
-  postgres:
-    image: postgres:15-alpine
-    container_name: octopod-postgres
-    restart: always
-    # Only expose PostgreSQL locally, not to the internet
-    ports:
-      - "127.0.0.1:5432:5432"
-    environment:
-      - POSTGRES_USER=${DB_USERNAME:-postgres}
-      - POSTGRES_PASSWORD=${DB_PASSWORD:-postgres}
-      - POSTGRES_DB=octopod
-    volumes:
-      - ./postgres-data:/var/lib/postgresql/data
-    privileged: true
-    networks:
-      - octopod-network
 
 networks:
   octopod-network:
