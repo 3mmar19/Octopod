@@ -19,7 +19,7 @@ export function SearchBar({ initialQuery = "" }: SearchBarProps) {
     } else {
       router.push("/search");
     }
-  }, 300);
+  }, 1000);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;

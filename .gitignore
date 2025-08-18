@@ -1,0 +1,33 @@
+# Node
+node_modules/
+npm-debug.log
+yarn-error.log
+.pnpm-debug.log
+
+# Environment
+.env
+.env.*
+!.env.example
+
+# Build
+dist/
+build/
+.next/
+out/
+
+# IDE
+.idea/
+.vscode/
+*.sublime-*
+.DS_Store
+
+# Logs
+logs/
+*.log
+
+# Docker
+.docker/
+
+# Temp
+.tmp/
+temp/

@@ -12,10 +12,7 @@ export interface Podcast {
   primaryGenreName: string;
   genres: string[];
   kind?: string;
-  // Add other fields as needed
 }
-
-// Episode interface removed as the API only returns podcasts
 
 export interface SearchResponse {
   resultCount: number;

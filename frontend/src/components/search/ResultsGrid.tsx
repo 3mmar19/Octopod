@@ -11,7 +11,7 @@ export function ResultsGrid({ query }: ResultsGridProps) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
-  const podcastsPerPage = 10; // Adjust for responsive grid (2x5 mobile, 3x4 tablet, 5x2 desktop)
+  const podcastsPerPage = 10;
 
   useEffect(() => {
     const fetchData = async () => {

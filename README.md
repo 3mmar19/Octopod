@@ -3,15 +3,16 @@
 <p align="center">
   <img src="frontend/public/logoW.png" alt="Octopod Logo" width="260" />
 </p>
-<p align="center"><strong>بحث قنوات البودكاست من كلمات بسيطة مع واجهة عربية حديثة</strong></p>
+<p align="center"><strong>Simple podcast search with a modern interface</strong></p>
 
 ## Overview
 
-Octopod is a modern, RTL-friendly podcast search application. It offers fast search powered by the iTunes API, a responsive grid UI (optimized for mobile → tablet → desktop), smooth animations, and graceful image fallbacks. Built with Next.js (frontend) and NestJS (backend), backed by PostgreSQL, and fully containerized with Docker.
+Octopod is a modern podcast search application. It offers fast search powered by the iTunes API, a responsive grid UI (optimized for mobile → tablet → desktop), smooth animations, and graceful image fallbacks. Built with Next.js (frontend) and NestJS (backend), backed by PostgreSQL, and fully containerized with Docker.
 
 ## Live Demo
 
-[Live Demo](http://104.251.216.212:3000/search?q=فنجان)
+[Live Demo](http://104.251.216.212:3000/search?q=podcast)
+[Swagger Ap](http://104.251.216.212:3001/api)
 
 ## Core Requirements
 

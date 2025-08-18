@@ -40,8 +40,8 @@ services:
       - NODE_ENV=production
       - DB_HOST=postgres
       - DB_PORT=5432
-      - DB_USERNAME=postgres
-      - DB_PASSWORD=postgres
+      - DB_USERNAME=${DB_USERNAME:-postgres}
+      - DB_PASSWORD=${DB_PASSWORD:-postgres}
       - DB_DATABASE=octopod
       - DB_SYNC=true
     depends_on:
@@ -68,24 +68,21 @@ services:
     ports:
       - "127.0.0.1:5432:5432"
     environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_USER=${DB_USERNAME:-postgres}
+      - POSTGRES_PASSWORD=${DB_PASSWORD:-postgres}
       - POSTGRES_DB=octopod
     volumes:
       - postgres_data:/var/lib/postgresql/data
     networks:
       - octopod-network
-    # Security improvements
-    security_opt:
-      - no-new-privileges:true
-    cap_drop:
-      - ALL
     # Resource limits
     deploy:
       resources:
         limits:
           cpus: '0.50'
           memory: 512M
+    # Fix permission issues
+    user: postgres
 
 networks:
   octopod-network:
