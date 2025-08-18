@@ -75,12 +75,6 @@ services:
       - postgres_data:/var/lib/postgresql/data
     networks:
       - octopod-network
-    # Resource limits
-    deploy:
-      resources:
-        limits:
-          cpus: '0.50'
-          memory: 512M
 
 networks:
   octopod-network:
