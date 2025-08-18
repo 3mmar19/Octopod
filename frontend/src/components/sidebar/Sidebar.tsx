@@ -1,9 +1,9 @@
 "use client";
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from "next/link";
 import { SidebarItem } from "./SidebarItem";
-import { Twitter, Linkedin, Github, Home, Search } from 'lucide-react';
+import { Twitter, Linkedin, Github, Home, Search, LogIn, UserPlus, MoreVertical } from 'lucide-react';
 
 const sidebarItems = [
   { href: "/", label: "Home", icon: <Home className="w-5 h-5" /> },
@@ -20,7 +20,7 @@ export function MobileMenuButton({ isOpen, onClick }: { isOpen: boolean; onClick
   return (
     <button
       onClick={onClick}
-      className="p-3 rounded-lg bg-[#1e1f30] border border-[#2a2b3d] hover:bg-[#2a2b3d] transition-colors shadow-lg"
+      className="p-3"
       aria-label={isOpen ? "Close Menu" : "Open Menu"}
     >
       <div className="w-6 h-6 flex flex-col justify-center items-center">
@@ -63,7 +63,7 @@ export function Sidebar({ isOpen = false, onClose }: SidebarProps) {
       <div 
         className={`fixed inset-0 bg-black/60 backdrop-blur-sm ${
           isOpen ? 'opacity-100 visible' : 'opacity-0 invisible'
-        } transition-all duration-300 ease-in-out z-40 md:hidden`}
+        } transition-all duration-300 ease-in-out z-65 md:hidden`}
         onClick={onClose}
         aria-hidden="true"
       />
@@ -75,7 +75,7 @@ export function Sidebar({ isOpen = false, onClose }: SidebarProps) {
 
       {/* Mobile Sidebar */}
       <aside 
-        className={`fixed top-0 left-0 z-50 w-72 h-screen flex-shrink-0 
+        className={`fixed top-0 left-0 z-70 w-72 h-screen flex-shrink-0 
           bg-[#141523]/95 backdrop-blur-md 
           border-r border-[#2a2b3d]/50 
           flex flex-col transition-all duration-300 ease-out
@@ -93,6 +93,20 @@ export function Sidebar({ isOpen = false, onClose }: SidebarProps) {
 }
 
 function SidebarContent({ onClose }: { onClose?: () => void }) {
+  const [showMobileOptions, setShowMobileOptions] = useState(false);
+  
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as HTMLElement;
+      if (!target.closest('.mobile-options-menu') && !target.closest('.mobile-options-button')) {
+        setShowMobileOptions(false);
+      }
+    };
+    
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
   return (
     <>
       {/* Logo */}
@@ -126,7 +140,8 @@ function SidebarContent({ onClose }: { onClose?: () => void }) {
       {/* Footer - Simplified for the new design */}
       <div className="mt-auto p-4">
         <div className="text-center p-4 rounded-xl bg-[#1e1f30]/80 backdrop-blur-lg shadow-lg border border-[#2a2b3d]/50 transition-all duration-300">
-          <div className="flex justify-center gap-3">
+          <div className="flex justify-between items-center">
+            <div className="flex gap-3">
             {/* GitHub */}
             <a 
               href="https://github.com/3mmar19" 
@@ -159,6 +174,46 @@ function SidebarContent({ onClose }: { onClose?: () => void }) {
             >
               <Twitter className="w-4 h-4" />
             </a>
+            </div>
+            
+            {/* Mobile Options Button */}
+            <div className="relative md:hidden">
+              <button 
+                onClick={() => setShowMobileOptions(!showMobileOptions)}
+                className="mobile-options-button p-2 rounded-full bg-[#2a2b3d]/80 backdrop-blur-sm shadow-lg border border-[#3a3b4d]/50 text-gray-300 hover:text-white hover:bg-[#3a3b4d] transition-all duration-300"
+                aria-label="More options"
+              >
+                <MoreVertical className="w-4 h-4" />
+              </button>
+              
+              {/* Mobile Options Dropdown */}
+              {showMobileOptions && (
+                <div className="mobile-options-menu absolute bottom-full right-0 mb-2 w-36 bg-[#1e1f30] border border-[#2a2b3d] rounded-lg shadow-xl overflow-hidden z-50">
+                  <button
+                    onClick={() => {
+                      // Handle login action
+                      setShowMobileOptions(false);
+                      if (onClose) onClose();
+                    }}
+                    className="flex items-center gap-2 w-full px-4 py-3 text-left text-sm hover:bg-[#2a2b3d] transition-colors"
+                  >
+                    <LogIn className="w-4 h-4" />
+                    <span>Log in</span>
+                  </button>
+                  <button
+                    onClick={() => {
+                      // Handle signup action
+                      setShowMobileOptions(false);
+                      if (onClose) onClose();
+                    }}
+                    className="flex items-center gap-2 w-full px-4 py-3 text-left text-sm hover:bg-[#2a2b3d] transition-colors"
+                  >
+                    <UserPlus className="w-4 h-4" />
+                    <span>Sign up</span>
+                  </button>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>

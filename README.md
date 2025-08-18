@@ -26,7 +26,6 @@ Octopod is a modern, RTL-friendly podcast search application. It offers fast sea
 - **Fast podcast search** via iTunes API
 - **Responsive grid** with 2 cols (mobile), 3 (tablet), 5 (desktop)
 - **Smart pagination** with 15 items per page
-- **RTL Arabic support** across layout, typography, and components
 - **Smooth hover animations** and transitions for an elevated UI
 - **Image fallbacks** for reliable thumbnails in production
 - **Modern stack**: Next.js 14 + NestJS + TypeORM + Fastify
@@ -49,13 +48,10 @@ cp .env.example .env
   - `PUBLIC_API_URL=http://localhost:3001`
   - `BACKEND_PUBLIC_PORT=3001`
 
-- VPS (public server) example
-  - `PUBLIC_API_URL=http://104.251.216.212:33001`
-  - `BACKEND_PUBLIC_PORT=33001`
-
 3) Start (rebuilds images when needed):
 
 ```bash
+git pull
 docker compose up -d --build
 ```
 
@@ -148,15 +144,13 @@ octopod/
 
 ## 📱 UI Features
 
-- **Grid Layout**: 3 rows × 5 columns podcast display
+- **Grid Layout**: 2 rows × 5 columns podcast display
 - **Pagination**: Smooth navigation with 15 items per page
 - **Hover Animations**: Scale, shadow, and transition effects
-- **Arabic Support**: Full RTL layout and typography
 - **Responsive**: Mobile-first design approach
 
 ## 🎨 UI/UX Notes
 
-- RTL-first layout and typography across pages and components
 - Image error handling with graceful fallbacks and placeholders
 - Reduced padding/spacing for compact mobile cards
 - Subtle transitions for hover/focus states to enhance perceived performance

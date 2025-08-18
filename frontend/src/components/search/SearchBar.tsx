@@ -45,11 +45,11 @@ export function SearchBar({ initialQuery = "" }: SearchBarProps) {
   }, [initialQuery]);
 
   return (
-    <div className="w-full max-w-full px-0 search">
+    <div className="w-full max-w-full px-0 search relative z-60">
       <div className="flex items-center gap-2 w-full">
-        <form id="search-bar" onSubmit={handleSubmit} className="flex-1 min-w-0 ml-0 searchbar" style={{ marginLeft: 0 }}>
+        <form id="search-bar" onSubmit={handleSubmit} className="md:flex-1 min-w-0 ml-12 md:ml-0 searchbar md:w-auto w-[calc(100%-60px)]">
           <div 
-            className={`relative flex w-full items-center rounded-md border ${isFocused ? 'border-[#456C91] ring-1 ring-[#456C91]/30' : 'border-[#2a2b3d]'} bg-transparent transition-colors duration-200`}
+            className={`relative flex items-center rounded-md border ${isFocused ? 'border-[#456C91] ring-1 ring-[#456C91]/30' : 'border-[#2a2b3d]'} bg-transparent transition-colors duration-200 md:w-full w-auto`}
           >
             <input
               ref={inputRef}
@@ -58,9 +58,9 @@ export function SearchBar({ initialQuery = "" }: SearchBarProps) {
               onChange={handleInputChange}
               onFocus={() => setIsFocused(true)}
               onBlur={() => setIsFocused(false)}
-              placeholder="Search through over 70 million podcasts and episodes..."
+              placeholder="Search podcasts..."
+              className="md:w-full w-[150px] bg-transparent px-[10px] py-[7px] pr-8 text-[14px] text-foreground placeholder:text-muted-foreground outline-none truncate"
               aria-label="Search through over 70 million podcasts and episodes..."
-              className="w-full bg-transparent px-[10px] py-[7px] pr-8 text-[14px] text-foreground placeholder:text-muted-foreground outline-none"
               dir="ltr"
             />
             
@@ -84,23 +84,26 @@ export function SearchBar({ initialQuery = "" }: SearchBarProps) {
           </div>
         </form>
         <div className="flex items-center">
+          {/* Login button - hidden on mobile */}
           <button
             type="button"
-            className="mr-[5px] mb-0 block text-[13px] font-medium px-[12px] py-[7px] rounded-md bg-[#456C91] text-white hover:bg-[#4e7ca8] transition-colors"
+            className="mr-[5px] mb-0 hidden md:block text-[13px] font-medium px-[12px] py-[7px] rounded-md bg-[#456C91] text-white hover:bg-[#4e7ca8] transition-colors"
             aria-label="Log in"
           >
             Log in
           </button>
+          {/* Sign up button - hidden on mobile */}
           <button
             type="button"
-            className="mr-[5px] mb-0 block text-[13px] font-medium px-[12px] py-[7px] rounded-md bg-[#456C91] text-white hover:bg-[#4e7ca8] transition-colors"
+            className="mr-[5px] mb-0 hidden md:block text-[13px] font-medium px-[12px] py-[7px] rounded-md bg-[#456C91] text-white hover:bg-[#4e7ca8] transition-colors"
             aria-label="Sign up"
           >
             Sign up
           </button>
+          {/* More options button - hidden on mobile */}
           <button
             type="button"
-            className="p-1.5 rounded-md text-foreground hover:bg-white/10 transition-colors"
+            className="p-1.5 rounded-md text-foreground hover:bg-white/10 transition-colors hidden md:block"
             aria-label="More options"
           >
             <MoreVertical className="w-[22px] h-[22px]" />

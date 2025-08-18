@@ -16,6 +16,17 @@ services:
       - backend
     networks:
       - octopod-network
+    # Security improvements
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    # Resource limits
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 512M
 
   backend:
     build:
@@ -37,13 +48,25 @@ services:
       - postgres
     networks:
       - octopod-network
+    # Security improvements
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    # Resource limits
+    deploy:
+      resources:
+        limits:
+          cpus: '0.75'
+          memory: 1G
 
   postgres:
     image: postgres:15-alpine
     container_name: octopod-postgres
     restart: always
+    # Only expose PostgreSQL locally, not to the internet
     ports:
-      - "5432:5432"
+      - "127.0.0.1:5432:5432"
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
@@ -52,6 +75,17 @@ services:
       - postgres_data:/var/lib/postgresql/data
     networks:
       - octopod-network
+    # Security improvements
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    # Resource limits
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 512M
 
 networks:
   octopod-network:

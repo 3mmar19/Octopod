@@ -14,7 +14,7 @@ import { PodcastsModule } from './podcasts/podcasts.module';
       useFactory: (configService: ConfigService) => ({
         type: 'postgres',
         host: configService.get('DB_HOST', 'postgres'),
-        port: parseInt(configService.get('DB_PORT', '5432')),
+        port: parseInt(configService.get('DB_PORT', '5432')), 
         username: configService.get('DB_USERNAME', 'postgres'),
         password: configService.get('DB_PASSWORD', 'postgres'),
         database: configService.get('DB_DATABASE', 'octopod'),
