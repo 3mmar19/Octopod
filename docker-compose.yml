@@ -81,8 +81,6 @@ services:
         limits:
           cpus: '0.50'
           memory: 512M
-    # Fix permission issues
-    user: postgres
 
 networks:
   octopod-network:
