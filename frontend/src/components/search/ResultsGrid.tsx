@@ -122,7 +122,8 @@ export function ResultsGrid({ query }: ResultsGridProps) {
                 <button
                   onClick={handlePreviousPage}
                   disabled={currentPage === 1}
-                  className="px-4 py-2 bg-muted hover:bg-muted/60 hover:shadow-md hover:scale-105 text-foreground rounded-lg text-sm font-medium transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 disabled:hover:shadow-none"
+                  className="px-4 py-2 bg-muted hover:bg-muted/60 hover:shadow-md hover:scale-105 text-foreground rounded-lg text-sm font-medium 
+                  transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 disabled:hover:shadow-none"
                 >
                   Previous
                 </button>
@@ -147,7 +148,8 @@ export function ResultsGrid({ query }: ResultsGridProps) {
                 <button
                   onClick={handleNextPage}
                   disabled={currentPage === totalPages}
-                  className="px-4 py-2 bg-muted hover:bg-muted/60 hover:shadow-md hover:scale-105 text-foreground rounded-lg text-sm font-medium transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 disabled:hover:shadow-none"
+                  className="px-4 py-2 bg-muted hover:bg-muted/60 hover:shadow-md hover:scale-105 text-foreground rounded-lg text-sm font-medium 
+                  transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 disabled:hover:shadow-none"
                 >
                   Next
                 </button>
